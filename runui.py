@@ -1,5 +1,4 @@
 import sys
-sys.path.append("/opt/arm")
 
 from arm.ui import app  # noqa E402
 from arm.config.config import cfg  # noqa E402

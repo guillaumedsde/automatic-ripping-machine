@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv sh
+
+cd /opt
+exec s6-setuidgid arm python3 runui.py

@@ -1,0 +1,9 @@
+#!/usr/bin/with-contenv sh
+
+ARM_HOME=/home/arm/
+
+mkdir -p ${ARM_HOME}/logs
+
+mkdir -p ${ARM_HOME}/.MakeMKV
+
+chown -R arm:arm ${ARM_HOME}

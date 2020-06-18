@@ -1,10 +1,6 @@
 #!/usr/bin/python3
 
-# import os
-# import re
-import yaml
+import os
+import copy
 
-yamlfile = "/etc/arm/arm.yaml"
-
-with open(yamlfile, "r") as f:
-    cfg = yaml.load(f)
+cfg = copy.deepcopy(os.environ)
