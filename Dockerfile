@@ -27,7 +27,7 @@ RUN apt-get update \
     && add-apt-repository ppa:stebbins/handbrake-releases \
     && add-apt-repository ppa:mc3man/bionic-prop \
     && apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y  --no-install-recommends \
     regionset \
     git \
     makemkv-bin  \
