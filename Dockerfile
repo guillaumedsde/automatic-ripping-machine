@@ -1,35 +1,20 @@
-FROM ubuntu:bionic as build
+FROM debian:bullseye-slim 
 
-ADD https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-amd64.tar.gz s6-overlay-amd64.tar.gz
+ARG DEBIAN_FRONTEND=noninteractive 
+ARG DEBCONF_NONINTERACTIVE_SEEN=true
 
-RUN mkdir -p /rootfs \
-    && tar xzf s6-overlay-amd64.tar.gz -C /rootfs 
-
-# copy S6 overlay configuration
-COPY rootfs/ /
-
-WORKDIR /rootfs/opt
-
-# Copy source code
-COPY arm arm
-COPY scripts scripts
-
-# Copy udev rules
-COPY setup/51-automedia.rules /lib/udev/rules.d/
-COPY runui.py .
-
-FROM ubuntu:bionic 
+# install python requirements
+COPY requirements.txt ./
 
 # install dependency packages
-RUN apt-get update \
-    && apt-get install -y software-properties-common \
-    && add-apt-repository ppa:heyarje/makemkv-beta \
-    && add-apt-repository ppa:stebbins/handbrake-releases \
-    && add-apt-repository ppa:mc3man/bionic-prop \
-    && apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y  --no-install-recommends \
-    regionset \
-    git \
+RUN apt update \
+    && apt install -y --no-install-recommends gnupg ca-certificates \
+    && echo 'deb http://deb.debian.org/debian bullseye main contrib non-free' > /etc/apt/sources.list \
+    && echo 'deb https://ramses.hjramses.com/deb/makemkv bullseye main' >> /etc/apt/sources.list \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9E5738E866C5E6B2 \
+    && mkdir -p /usr/share/man/man1/ \
+    && apt update \
+    && apt install -y --no-install-recommends \
     makemkv-bin  \
     makemkv-oss  \
     handbrake-cli \
@@ -41,22 +26,36 @@ RUN apt-get update \
     cdparanoia \
     at \
     python3 \
-    python3-pip\
     libcurl4-openssl-dev \
     libssl-dev \
     libdvd-pkg \
-    default-jre-headless
+    default-jre-headless \
+    python3-dev \
+    python3-setuptools \
+    python3-pip \
+    && dpkg-reconfigure libdvd-pkg \
+    && pip3 install -r requirements.txt \
+    && groupadd arm \
+    && useradd -m arm -g arm -G cdrom \
+    && wget -O "s6-overlay-amd64.tar.gz" "https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-amd64.tar.gz" \
+    && tar xzf "s6-overlay-amd64.tar.gz" -C / \
+    && rm "s6-overlay-amd64.tar.gz" \
+    && apt purge -y software-properties-common python3-dev python3-setuptools python3-pip gnupg \
+    && apt --purge -y autoremove \
+    && rm -rf "/var/lib/apt/lists/*"
+
+# copy S6 overlay configuration
+COPY rootfs/ /
 
 WORKDIR /opt
 
-# install python requirements
-COPY requirements.txt .
-RUN pip3 install -r requirements.txt \
-    && groupadd arm \
-    && useradd -m arm -g arm -G cdrom
+# Copy udev rules
+COPY setup/51-automedia.rules /lib/udev/rules.d/
 
-# copy S6 overlay
-COPY --from=build /rootfs/ /
+# Copy source code
+COPY arm arm
+COPY scripts scripts
+COPY runui.py .
 
 ENV WEBSERVER_IP="0.0.0.0" \
     WEBSERVER_PORT="8080" \
