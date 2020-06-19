@@ -15,6 +15,7 @@ RUN apt update \
     && mkdir -p /usr/share/man/man1/ \
     && apt update \
     && apt install -y --no-install-recommends \
+    udev \
     makemkv-bin  \
     makemkv-oss  \
     handbrake-cli \
