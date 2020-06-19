@@ -45,7 +45,7 @@ RUN apt update \
     && rm -rf "/var/lib/apt/lists/*"
 
 # copy S6 overlay configuration
-COPY rootfs/ /
+COPY rootfs /
 
 WORKDIR /opt
 
