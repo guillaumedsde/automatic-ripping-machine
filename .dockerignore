@@ -2,12 +2,12 @@
 **
 
 # Allow files and directories
-!/arm/
-!/docs/
-!/rootfs/
-!/scripts/
-!/setup/
-!/webserver/
+!arm/
+!docs/
+!rootfs/
+!scripts/
+!setup/
+!webserver/
 
 !*.py
 !requirements*.txt
