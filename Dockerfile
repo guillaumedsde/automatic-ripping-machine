@@ -47,14 +47,10 @@ RUN apt update \
 # copy S6 overlay configuration
 COPY rootfs /
 
-WORKDIR /opt
-
-# Copy udev rules
-COPY setup/51-automedia.rules /lib/udev/rules.d/
+WORKDIR /opt/arm
 
 # Copy source code
 COPY arm arm
-COPY scripts scripts
 COPY runui.py .
 
 ENV WEBSERVER_IP="0.0.0.0" \
