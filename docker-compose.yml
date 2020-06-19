@@ -1,0 +1,14 @@
+version: "2.4"
+
+services:
+  arm:
+      image: guillaumedsde/automatic-ripping-machine:latest
+      ports:
+        - 8080:8080
+      volumes:
+        - ${DOCKER_DATA}/arm/config:/config
+        - ${DATA}/data:/data
+      devices:
+        - "/dev/sr0:/dev/sr0"
+        - "/dev/sr1:/dev/sr1"
+        - "/dev/sr2:/dev/sr2"
