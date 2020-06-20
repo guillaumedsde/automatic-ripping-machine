@@ -36,8 +36,6 @@ RUN apt update \
     python3-pip \
     && dpkg-reconfigure libdvd-pkg \
     && pip3 install -r requirements.txt \
-    && groupadd arm \
-    && useradd -m arm -g arm -G cdrom \
     && wget -O "s6-overlay-amd64.tar.gz" "https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-amd64.tar.gz" \
     && tar xzf "s6-overlay-amd64.tar.gz" -C / \
     && rm "s6-overlay-amd64.tar.gz" \

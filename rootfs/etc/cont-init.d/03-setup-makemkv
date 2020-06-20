@@ -1,7 +1,5 @@
 #!/usr/bin/with-contenv sh
 
-ARM_HOME=/home/arm/
+ARM_HOME=/root
 
-echo "app_Key = \"${MAKEMKV_KEY}\"" > "${ARM_HOME}/.MakeMKV/settings.conf"
-
-chown -R arm:arm ${ARM_HOME}
+echo "app_Key = \"${MAKEMKV_KEY}\"" >"${ARM_HOME}/.MakeMKV/settings.conf"

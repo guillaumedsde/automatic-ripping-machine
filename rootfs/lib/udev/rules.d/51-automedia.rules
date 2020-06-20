@@ -1,1 +1,1 @@
-ACTION=="change", SUBSYSTEM=="block", RUN+="/opt/arm/scripts/arm_wrapper.sh %k"
+ACTION=="change", SUBSYSTEM=="block", RUN+="python3 /opt/arm/arm/ripper/main.py -d %k"
