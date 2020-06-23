@@ -43,15 +43,15 @@ MANUAL_WAIT_TIME: 600
 
 # Final directory of transcoded files
 # Ripped and transcoded files end up here
-ARMPATH: "/home/arm/media/completed/"
+ARMPATH: "/data/completed"
 
 # Path to raw MakeMKV directory
 # Destination for MakeMKV and source for HandBrake
-RAWPATH: "/home/arm/media/raw/"
+RAWPATH: "/data/raw"
 
 # Path to final media directory
 # Destination for final file.  Only used for movies that are positively identified
-MEDIA_DIR: "/home/arm/media/movies/"
+MEDIA_DIR: "/data/movies"
 
 # Movie subdirectory name for "extras"
 # Valid names are dependent on your media server
@@ -64,7 +64,7 @@ INSTALLPATH: "/opt/arm/"
 
 # Path to directory to hold log files
 # Make sure to include trailing /
-LOGPATH: "/home/arm/logs/"
+LOGPATH: "/config/logs/"
 
 # Log level.  DEBUG, INFO, WARNING, ERROR, CRITICAL
 # The default is INFO
@@ -74,14 +74,14 @@ LOGLEVEL: "INFO"
 LOGLIFE: 1
 
 # Path to ARM database file
-DBFILE: "/home/arm/db/arm.db"
+DBFILE: "/config/arm.db"
 
 ##################
 ##  Web Server  ##
 ##################
 
 # IP address of web server (this machine)
-WEBSERVER_IP: x.x.x.x
+WEBSERVER_IP: 0.0.0.0
 
 # Port for web server
 WEBSERVER_PORT: 8080

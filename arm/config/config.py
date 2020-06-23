@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 
-from environs import Env
+# import os
+# import re
+import yaml
 
-env = Env()
-env.read_env()
+yamlfile = "/config/arm.yaml"
 
-cfg = dict(env.dump())
+with open(yamlfile, "r") as f:
+    cfg = yaml.load(f)
