@@ -6,7 +6,7 @@ services:
       ports:
         - 8080:8080
       volumes:
-        - ${DOCKER_DATA}/arm/config:/config
+        - ${DOCKER_DATA}/arm:/config
         - ${DATA}/data:/data
       devices:
         - "/dev/sr0:/dev/sr0"
