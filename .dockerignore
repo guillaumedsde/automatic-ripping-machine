@@ -10,7 +10,7 @@
 !webserver/
 
 !*.py
-!requirements*.txt
+!Pipfile*
 
 # Ignore unnecessary files inside allowed directories
 # This should go after the allowed directories

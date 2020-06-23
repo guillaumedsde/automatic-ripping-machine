@@ -1,16 +1,16 @@
-FROM debian:bullseye-slim 
+FROM python:3.8-slim-buster
 
 ARG DEBIAN_FRONTEND=noninteractive 
 ARG DEBCONF_NONINTERACTIVE_SEEN=true
 
 # install python requirements
-COPY requirements.txt ./
+COPY Pipfile* ./
 
 # install dependency packages
 RUN apt update \
     && apt install -y --no-install-recommends gnupg ca-certificates \
-    && echo 'deb http://deb.debian.org/debian bullseye main contrib non-free' > /etc/apt/sources.list \
-    && echo 'deb https://ramses.hjramses.com/deb/makemkv bullseye main' >> /etc/apt/sources.list \
+    && echo 'deb http://deb.debian.org/debian buster main contrib non-free' > /etc/apt/sources.list \
+    && echo 'deb https://ramses.hjramses.com/deb/makemkv buster main' >> /etc/apt/sources.list \
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9E5738E866C5E6B2 \
     && mkdir -p /usr/share/man/man1/ \
     && apt update \
@@ -26,20 +26,18 @@ RUN apt update \
     glyrc \
     cdparanoia \
     at \
-    python3 \
     libcurl4-openssl-dev \
     libssl-dev \
     libdvd-pkg \
     default-jre-headless \
-    python3-dev \
-    python3-setuptools \
-    python3-pip \
     && dpkg-reconfigure libdvd-pkg \
-    && pip3 install -r requirements.txt \
-    && wget -O "s6-overlay-amd64.tar.gz" "https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-amd64.tar.gz" \
-    && tar xzf "s6-overlay-amd64.tar.gz" -C / \
-    && rm "s6-overlay-amd64.tar.gz" \
-    && apt purge -y software-properties-common python3-dev python3-setuptools python3-pip gnupg \
+    && pip install --no-cache-dir pipenv \
+    && pipenv install --system --deploy --ignore-pipfile \
+    && wget -O "s6.tgz" "https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-amd64.tar.gz" \
+    && tar xzf "s6.tgz" -C / \
+    && rm "s6.tgz" \
+    && pip uninstall -y pipenv \
+    && apt purge -y software-properties-common gnupg \
     && apt --purge -y autoremove \
     && rm -rf "/var/lib/apt/lists/*"
 
