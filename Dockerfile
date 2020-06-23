@@ -1,7 +1,7 @@
 FROM python:3.8-slim-buster
 
 ARG DEBIAN_FRONTEND=noninteractive 
-ARG DEBCONF_NONINTERACTIVE_SEEN=true
+ARG DEBCONF_NONINTERACTIVE_SEEN="true"
 
 # install python requirements
 COPY Pipfile* ./
@@ -71,21 +71,21 @@ ENV WEBSERVER_IP="0.0.0.0" \
     LOGLIFE=1 \ 
     SET_MEDIA_PERMISSIONS="false" \ 
     CHMOD_VALUE=777 \ 
-    SET_MEDIA_OWNER=false \ 
-    CHOWN_USER= \ 
-    CHOWN_GROUP= \ 
+    SET_MEDIA_OWNER="false" \ 
+    CHOWN_USER="" \ 
+    CHOWN_GROUP="" \ 
     RIPMETHOD="backup"  \ 
     MKV_ARGS="" \ 
-    DELRAWFILES=true \ 
-    HASHEDKEYS=False \ 
+    DELRAWFILES="true" \ 
+    HASHEDKEYS="false" \ 
     HB_PRESET_DVD="HQ 720p30 Surround"  \ 
     HB_PRESET_BD="HQ 1080p30 Surround"  \ 
     DEST_EXT=mkv \ 
     HANDBRAKE_CLI=HandBrakeCLI \ 
-    MAINFEATURE=false \ 
+    MAINFEATURE="false" \ 
     HB_ARGS_DVD="--subtitle scan -F" \ 
     HB_ARGS_BD="--subtitle scan -F --subtitle-burned --audio-lang-list eng --all-audio" \ 
-    EMBY_REFRESH=false \ 
+    EMBY_REFRESH="false" \ 
     EMBY_SERVER="" \ 
     EMBY_PORT="8096" \ 
     EMBY_CLIENT="ARM" \ 
@@ -95,8 +95,8 @@ ENV WEBSERVER_IP="0.0.0.0" \
     EMBY_USERID="" \ 
     EMBY_PASSWORD="" \ 
     EMBY_API_KEY="" \ 
-    NOTIFY_RIP=true \ 
-    NOTIFY_TRANSCODE=true \ 
+    NOTIFY_RIP="true" \ 
+    NOTIFY_TRANSCODE="true" \ 
     PB_KEY="" \ 
     IFTTT_KEY="" \ 
     IFTTT_EVENT="arm_event" \ 
