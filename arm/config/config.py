@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
-import os
-import copy
+from environs import Env
 
-cfg = copy.deepcopy(os.environ)
+env = Env()
+env.read_env()
+
+cfg = dict(env.dump())
