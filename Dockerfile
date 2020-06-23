@@ -48,7 +48,7 @@ WORKDIR /opt/arm
 
 # Copy source code
 COPY arm arm
-COPY runui.py .
+COPY runui.py VERSION ./
 
 ENV WEBSERVER_IP="0.0.0.0" \
     WEBSERVER_PORT="8080" \
