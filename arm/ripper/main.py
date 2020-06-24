@@ -107,7 +107,7 @@ def main(logfile, job):
                      + str(job.video_type) + ". Main Feature is " + str(job.config.MAINFEATURE)
                      + ".  Edit entry here: http://" + job.config.WEBSERVER_IP + ":" + str(job.config.WEBSERVER_PORT))
     elif job.disctype == "music":
-        utils.notify(job, "ARM notification", "Found music CD: " + job.label + ". Ripping all tracks")
+        utils.notify(job, "ARM notification", "Found music CD: " + str(job.label) + ". Ripping all tracks")
     elif job.disctype == "data":
         utils.notify(job, "ARM notification", "Found data disc.  Copying data.")
     else:
@@ -320,7 +320,7 @@ def main(logfile, job):
 
     elif job.disctype == "music":
         if utils.rip_music(job, logfile):
-            utils.notify(job, "ARM notification", "Music CD: " + job.label + " processing complete.")
+            utils.notify(job, "ARM notification", "Music CD: " + str(job.label) + " processing complete.")
             utils.scan_emby(job)
         else:
             logging.info("Music rip failed.  See previous errors.  Exiting.")
@@ -337,7 +337,7 @@ def main(logfile, job):
                 sys.exit()
 
         if utils.rip_data(job, datapath, logfile):
-            utils.notify(job, "ARM notification", "Data disc: " + job.label + " copying complete.")
+            utils.notify(job, "ARM notification", "Data disc: " + str(job.label) + " copying complete.")
             job.eject()
         else:
             logging.info("Data rip failed.  See previous errors.  Exiting.")
